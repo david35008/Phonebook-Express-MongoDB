@@ -23,19 +23,30 @@ const fetchData = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
+
     const noteObject = {
       name: newPerson,
       number: newPhoneNumber
     };
+    let method = false;
+    let id
+    phonebook.some(person => {
+      if(person.name === newPerson) {
+        method = true
+        id = person.id
+    } 
+    })
+    if(!method) {
+      phonebookService.create(noteObject)
+    } else {
+      phonebookService.update(id, noteObject)
+      }
+      fetchData();
+      setNewPerson('');
+      setPhoneNumber('');
+  }
   
-    phonebookService
-      .create(noteObject)
-      .then(returnedNote => {
-        setPhonebook(phonebook.concat(returnedNote));
-        setNewPerson('');
-        setPhoneNumber('');
-      });
-  };
+
 
   const handlePersonChange = (event) => {
     setNewPerson(event.target.value);

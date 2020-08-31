@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+mongoose.set('useFindAndModify', false)
+
 if (process.argv.length < 3) {
     console.log('Please provide the password as an argument: node mongo.js <password>')
     process.exit(1)
@@ -40,8 +42,3 @@ if (process.argv.length === 3) {
     console.log("name should be in quotes if has more than one letter")
     mongoose.connection.close()
 }
-
-//   Person.deleteMany({}).then(result => {
-//     console.log(result);
-//     mongoose.connection.close()
-//   })

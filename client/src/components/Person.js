@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Person = ({ person, handleClick }) => {
-// debugger
+debugger
   return (
     <li className='person' id={person.id}>
      Name: {person.name} <br/>
