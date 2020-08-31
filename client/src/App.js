@@ -58,7 +58,10 @@ const fetchData = () => {
 
   const handleClick = (e) => {
     phonebookService.remove(e)
-    fetchData();
+    .then(()=> {
+      fetchData();
+    }
+    )
   }
 
   return (
