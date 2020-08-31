@@ -1,43 +1,53 @@
-import React, { useState, useEffect } from 'react'
-import Person from './components/Person'
-import Notification from './components/Notification'
-import phonebookService from './services/persons'
+import React, { useState, useEffect } from 'react';
+import Person from './components/Person';
+import Notification from './components/Notification';
+import phonebookService from './services/personsAjax';
 
 const App = () => {
-  const [phonebook, setPhonebook] = useState([]) 
-  const [newPerson, setNewPerson] = useState('')
-  const [newPhoneNumber, setPhoneNumber] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [phonebook, setPhonebook] = useState([]) ;
+  const [newPerson, setNewPerson] = useState('');
+  const [newPhoneNumber, setPhoneNumber] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    phonebookService
+const fetchData = () => {
+  phonebookService
       .getAll()
       .then(res => {
-        setPhonebook(res)
-      })
-  }, [])
+        setPhonebook(res);
+      });
+}
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const addPerson = (event) => {
     event.preventDefault()
     const noteObject = {
       name: newPerson,
       number: newPhoneNumber
-    }
+    };
   
     phonebookService
       .create(noteObject)
       .then(returnedNote => {
-        setPhonebook(phonebook.concat(returnedNote))
-        setNewPerson('')
-      })
-  }
+        setPhonebook(phonebook.concat(returnedNote));
+        setNewPerson('');
+        setPhoneNumber('');
+      });
+  };
 
   const handlePersonChange = (event) => {
-    setNewPerson(event.target.value)
-  }
+    setNewPerson(event.target.value);
+  };
 
   const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value)
+    setPhoneNumber(event.target.value);
+  };
+
+  const handleClick = (e) => {
+    phonebookService.remove(e)
+    fetchData();
   }
 
   return (
@@ -49,6 +59,7 @@ const App = () => {
           <Person
             key={i}
             person={person} 
+            handleClick={handleClick}
           />
         )}
       </ul>

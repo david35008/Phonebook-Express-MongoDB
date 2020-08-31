@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Person = ({ person }) => {
-
-
+const Person = ({ person, handleClick }) => {
+// debugger
   return (
-    <li className='person'>
+    <li className='person' id={person.id}>
      Name: {person.name} <br/>
      Phone number: {person.number}
+     <button onClick={(e) => handleClick(e.target.parentNode.id)} >delete</button>
     </li>
   )
 }
