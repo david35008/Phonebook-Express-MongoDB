@@ -66,7 +66,7 @@ const fetchData = () => {
 
   return (
     <div>
-      <h1>Persons</h1>
+      <h1>Phone Book</h1>
       <Notification message={errorMessage} />
       <ul>
         {phonebook.map((person, i) => 
