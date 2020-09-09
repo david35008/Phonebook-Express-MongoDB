@@ -30,7 +30,7 @@ const fetchData = () => {
     };
     let method = false;
     let id
-    phonebook.some(person => {
+    phonebook.forEach(person => {
       if(person.name === newPerson) {
         method = true
         id = person.id
@@ -61,7 +61,10 @@ const fetchData = () => {
     .then(()=> {
       fetchData();
     }
+    ).catch(e =>
+      setErrorMessage(e.message)
     )
+    
   }
 
   return (
