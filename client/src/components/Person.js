@@ -1,11 +1,15 @@
 import React from 'react'
 
-const Person = ({ person, handleClick }) => {
+const Person = ({ person, deleteContact }) => {
   return (
     <li className='person' id={person.id}>
-     Name: {person.name} <br/>
-     Phone number: {person.number}
-     <button onClick={(e) => handleClick(e.target.parentNode.id)} >delete</button>
+        <div>
+          {person.name}
+        </div>
+        <div>
+          {person.number}
+        </div>
+        <button onClick={(e) => deleteContact(e.target.parentNode.id)} >Delete</button>
     </li>
   )
 }

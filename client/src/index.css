@@ -1,20 +1,46 @@
+body {
+  text-align: center;
+}
+
 h1 {
   color: green;
   font-style: italic;
 }
 
+.phonebookList {
+  background-image: url('./images/printable-phone-list-template_40303.png');
+  background-repeat: no-repeat;
+  background-position: center start;
+  background-size: cover;
+  width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+}
+
 .person {
-color: grey;
-padding-top: 3px;
-font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 550px;
+  list-style: none;
+  color: grey;
+  margin-top: 5px;
+  font-size: 25px;
 }
 
 .error {
-color: red;
-background: lightgrey;
-font-size: 20px;
-border-style: solid;
-border-radius: 5px;
-padding: 10px;
-margin-bottom: 10px;
-}  
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

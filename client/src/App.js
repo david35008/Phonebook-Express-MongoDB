@@ -4,18 +4,18 @@ import Notification from './components/Notification';
 import phonebookService from './services/personsAjax';
 
 const App = () => {
-  const [phonebook, setPhonebook] = useState([]) ;
+  const [phonebook, setPhonebook] = useState([]);
   const [newPerson, setNewPerson] = useState('');
   const [newPhoneNumber, setPhoneNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
-const fetchData = () => {
-  phonebookService
+  const fetchData = () => {
+    phonebookService
       .getAll()
       .then(res => {
         setPhonebook(res);
       });
-}
+  }
 
   useEffect(() => {
     fetchData();
@@ -31,22 +31,20 @@ const fetchData = () => {
     let method = false;
     let id
     phonebook.forEach(person => {
-      if(person.name === newPerson) {
+      if (person.name === newPerson) {
         method = true
         id = person.id
-    } 
+      }
     })
-    if(!method) {
+    if (!method) {
       phonebookService.create(noteObject)
     } else {
       phonebookService.update(id, noteObject)
-      }
-      fetchData();
-      setNewPerson('');
-      setPhoneNumber('');
+    }
+    fetchData();
+    setNewPerson('');
+    setPhoneNumber('');
   }
-  
-
 
   const handlePersonChange = (event) => {
     setNewPerson(event.target.value);
@@ -56,30 +54,21 @@ const fetchData = () => {
     setPhoneNumber(event.target.value);
   };
 
-  const handleClick = (e) => {
-    phonebookService.remove(e)
-    .then(()=> {
-      fetchData();
-    }
-    ).catch(e =>
-      setErrorMessage(e.message)
-    )
-    
+  const deleteContact = (event) => {
+    phonebookService.remove(event)
+      .then(() => {
+        fetchData();
+      }
+      ).catch(error =>
+        setErrorMessage(error.message)
+      )
+
   }
 
   return (
     <div>
       <h1>Phone Book</h1>
       <Notification message={errorMessage} />
-      <ul>
-        {phonebook.map((person, i) => 
-          <Person
-            key={i}
-            person={person} 
-            handleClick={handleClick}
-          />
-        )}
-      </ul>
       <form onSubmit={addPerson}>
         <input
           value={newPerson}
@@ -87,14 +76,25 @@ const fetchData = () => {
           onChange={handlePersonChange}
           required
         />
-         <input
+        <input
           value={newPhoneNumber}
           placeholder={'Type new phoneNumber...'}
           onChange={handlePhoneNumberChange}
           required
         />
         <button type="submit">save</button>
-      </form>   
+      </form >
+      <div className='phonebookList'>
+        <ul className='panel'>
+          {phonebook.map((person, i) =>
+            <Person
+              key={i}
+              person={person}
+              deleteContact={deleteContact}
+            />
+          )}
+        </ul>
+      </div>
     </div>
   )
 }
